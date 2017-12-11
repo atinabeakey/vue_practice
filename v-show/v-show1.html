@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin:0;padding:0;}
+        .box1{
+            margin:0 auto;
+            width:200px;
+            height:200px;
+            border: 2px solid #ff33ff;
+            background:#0ff;}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input type="button" value="显示/隐藏" v-on:click="hide=false"/>
+        <!--<div class="box1" v-show="false"></div>//直接隐藏-->
+        <div class="box1" v-show="hide"></div>
+    </div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    var app=new Vue({
+        el:'.box',
+        data:{
+           hide:true
+        }
+    })
+</script>
+</html>

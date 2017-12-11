@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/vue-resource.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<input type="button" value="按钮" @click="get()" />
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el:"#box",
+			data:{
+				
+			},//get的获取数据方式
+			methods:{
+				get:function(){
+					this.$http.post("../js/get.php",{
+						a:2,
+						b:3
+					},{
+						emulateJSON:true
+					}).then(function(res){
+						console.log(res.data);
+					},function(res){
+						console.log("123");
+					})
+				}
+			}
+			
+		})
+		
+	</script>
+</html>

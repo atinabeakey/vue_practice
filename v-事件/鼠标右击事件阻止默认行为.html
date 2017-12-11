@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <!--第一种方法-->
+    <!--<div @click="show2()">
+        <input type="button" value="按钮" @click="show($event)"/>
+    </div>-->
+    <div @click="show2()">
+        <input type="button" value="按钮" @contextmenu="show(event)"/>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el:'#box',
+        data:{
+
+        },
+        methods:{
+            /*第一种方法*/
+            show2:function(ev) {
+                alert(1)
+                ev.preventDefault();
+            }
+        }
+    })
+</script>
+</html>

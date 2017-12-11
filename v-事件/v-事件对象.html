@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="box">
+        <input type="button" value="按钮" @click="show(12,$event)"/>
+    </div>
+</body>
+<script type="text/javascript" src="..js/vue.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el:'#box',
+        data:{
+
+        },
+        methods:{
+            show:function(ev,b){
+                /*alert(1) console.log(ev.clientX);*/
+                alert(ev.clientX)
+                alert(b)
+            }
+        }
+    })
+</script>
+
+</html>

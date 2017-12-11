@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../js/vue.min.js"></script>
+    <script src="js/vue-resource.js"></script>
+</head>
+<body>
+<div id="box">
+    {{url}}
+    <!--<input type="text" value={{url}}>-->
+    <img :src="url">
+</div>
+</body>
+<script>
+    new Vue({
+        el:"#box",
+        data:{
+            url:"https://www.baidu.com/img/bd_logo1.png"
+        }
+    })
+
+</script>
+</html>

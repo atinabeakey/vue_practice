@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+       <button @click="getList()">获取数据</button>
+        <ul>
+            <li v-for="item in items.station_tag">{{item.tag_name}}</li>
+        </ul>
+    </div>
+<script src="../js/vue.min.js"></script>
+<script src="../js/vue-resource.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            items:''
+        },
+        methods: {
+            getList (){
+                console.log(this)
+                this.$http.get('http://121.42.253.149:18816/v1_0_0/tags',{
+                    access_token:"5971a53a92b5570007eb681c",
+                    level:2
+                }).then(function(res){
+                    console.log(res.data)
+                    this.items=res.data;
+                },function(res){
+                    console.log(res.status)
+                });
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

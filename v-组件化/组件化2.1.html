@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <counter color="green"></counter>
+
+    <counter color="red"></counter>
+</div>
+<template id="counter-template">
+    <h1> {{ color }}</h1>
+    <button @click="count ++" style="background:{{ color }} ">加{{count}}</button>
+</template>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+    Vue.component('counter',{
+        template:'#counter-template',
+        props:['color'],
+        data:function(){
+            return {count :0}
+        }
+    });
+    new Vue({
+        el: '#box'
+    });
+</script>
+</html>

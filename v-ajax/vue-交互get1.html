@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			select{width: 100px;}
+			option{
+				height: 20px;
+			}
+		</style>
+		<script src="../js/vue.min.js"></script>
+		<!--<script src="js/vue.min.js"></script>-->	
+		<script src="../js/vue-resource.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<!--<input type="button" value="按钮" @click="get()" />
+			{{this.msg}}-->
+			<select @mousedown="get()" @change="post()">
+				<option selected="selected" >请选择id</option>
+				<option >
+					{{msg}}
+				</option>
+			</select>
+			<ul>
+				<li v-for="(value,index) in det.collector_port" v-if="det.port_name.split(0,1)='A'">
+					{{det.collector_port}}
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el:"#box",
+			data:{
+				msg:"",
+				det:""
+			},//get的获取数据方式
+			methods:{
+				get:function(){
+					this.$http.get("http://rap.taobao.org/mockjs/15031/v1/controllers").then(function(res){
+						console.log(res.data.collector_id);
+						this.msg=res.data.collector_id;
+//						console.log(res.data.name);
+					},function(res){
+						
+					})
+				},
+				post:function(){
+					this.$http.get("http://rap.taobao.org/mockjsdata/15031/v1/collectorModels",{
+						collector_id:this.msg
+					}).then(function(res){
+						console.log(res.data);
+						this.det=res.data;
+						console.log(det.port_name);
+						//console.log(res.data.collector_port);
+					})
+					//http://rap.taobao.org/mockjsdata/15031/v1/collectorModels
+				}
+			}
+			//get传数据
+//			methods:{
+//				get:function(){
+//					this.$http.get("js/get.php",{
+//						a:2,
+//						b:1
+//					}).then(function(res){
+//						alert(res.data);
+//					},function(res){
+//						console.log("123");
+//					})
+//				}
+//			}
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+       <button @click="getList()">获取数据</button>
+        <ul>
+            <li v-for="item in items.station_tag">{{item.tag_name}}</li>
+        </ul>
+    </div>
+<script src="../js/vue.min.js"></script>
+<script src="../js/vue-resource.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            items:''
+        },
+        methods: {
+            getList (){
+                console.log(this)
+                this.$http.post('get.php',{
+                    a:2,
+                    b:1
+                },{
+                    emulateJSON:true
+                }).then(function(res){
+                    console.log(res.data)
+                   // this.items=res.data;
+                },function(res){
+                    console.log(res.status)
+                });
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

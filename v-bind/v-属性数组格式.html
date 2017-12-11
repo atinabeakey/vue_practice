@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .red{
+            background: #ff33ff;
+        }
+        .blue{
+            color: #0ff;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <p :class="[red,b]" >这是一个p标签，今天这天气有点冷</p><!--中括号里面的是数据，可以是多个，之间用逗号隔开-->
+</div>
+</body>
+<script src="../js/vue.min.js"></script>
+<script src="../js/vue-resource.js"></script>
+<script>
+    new Vue({
+        el:"#box",
+        data:{
+            red:"red",
+            b:"blue"
+        }
+    })
+
+</script>
+</html>

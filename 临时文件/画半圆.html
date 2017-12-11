@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			p{
+				margin: 20px auto;
+			}
+			li{
+				list-style: none;
+			}
+			/*上半圆*/
+			p:nth-of-type(1){
+				width: 200px;
+				height: 100px;
+				background: #00e4be;
+				/*-webkit-border-radius:100px 100px;
+				-moz-border-radius:100px 100px;*/
+				border-radius:100px 100px 0 0;
+			}
+			/*左半圆*/
+			p:nth-of-type(2){
+				width: 100px;
+				height: 200px;
+				background: #e49ed1;
+				border-radius:100px 0 0 100px ;
+			}
+			/*下半圆*/
+			p:nth-of-type(3){
+				width: 200px;
+				height: 100px;
+				background: #40ade4;
+				border-radius:0 0 100px 100px;
+			}
+			/*右半圆*/
+			p:nth-of-type(4){
+				width: 100px;
+				height: 200px;
+				background: #e4842e;
+				border-radius:0 100px 100px 0;
+			}
+			div{
+				background: #f0f !important;
+			}
+			ul li {
+				float: left;
+				height: 20px;
+				width: 100px;
+				background: #f0ad4e;
+				margin-right: 20px;
+			}
+			ul.clearfix::after {
+				content: '.';
+				clear: both;
+				display: block;
+				overflow: hidden;
+				visibility: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="clearfix">
+			<li>666</li>
+			<li>666</li>
+			<li>666</li>
+			<li>666</li>
+		</ul>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<div style="background:#ff0;height: 100px;"></div>
+	</body>
+</html>

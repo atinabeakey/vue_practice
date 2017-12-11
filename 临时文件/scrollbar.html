@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ::-webkit-scrollbar
+         {
+            width: 16px;
+            height: 16px;
+            background-color: #F5F5F5;
+        }
+
+         /*定义滚动条轨道 内阴影+圆角*/
+         ::-webkit-scrollbar-track
+         {
+               -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+              border-radius: 10px;
+              background-color: #F5F5F5;
+         }
+
+         /*定义滑块 内阴影+圆角*/
+         ::-webkit-scrollbar-thumb
+         {
+                border-radius: 10px;
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+             background-color: #555;
+         }
+
+        /*scrollbar-3dlight-color	IE特有属性	IE5.5+	y	设置滚动框的和滚动条箭头左上边缘的颜色
+        scrollbar-highlight-color	IE特有属性	IE5.5+	y	设置滚动框的和滚动条箭头左上边缘的颜色
+        scrollbar-face-color	IE特有属性	IE5.5+	y	设置滚动框和滚动条箭头的颜色
+        scrollbar-arrow-color	IE特有属性	IE5.5+	y	设置滚动条箭头的颜色
+        scrollbar-shadow-color	IE特有属性	IE5.5+	y	设置滚动框的和滚动条箭头右下边缘的颜色
+        scrollbar-dark-shadow-color	IE特有属性	IE5.5+	y	设置滚动条槽的颜色
+        scrollbar-base-color	IE特有属性	IE5.5+	y	设置滚动条主要构成部分的颜色*/
+        @-moz-document url-prefix(http://),url-prefix(https://) {
+            /* 滚动条颜色 */
+            scrollbar {
+                -moz-appearance: none !important;
+                background: rgb(0,255,0) !important;
+            }
+            /* 滚动条按钮颜色 */
+            thumb,scrollbarbutton {
+                -moz-appearance: none !important;
+                background-color: rgb(0,0,255) !important;
+            }
+            /* 鼠标悬停时按钮颜色 */
+            thumb:hover,scrollbarbutton:hover {
+                -moz-appearance: none !important;
+                background-color: rgb(255,0,0) !important;
+            }
+            /* 隐藏上下箭头 */
+            scrollbarbutton {
+                display: none !important;
+            }
+            /* 纵向滚动条宽度 */
+            scrollbar[orient="vertical"] {
+                min-width: 15px !important;
+            }
+        }                                                                                                                                                                                                                                                                                                                                     scrollbar-track-color	IE特有属性	IE5.5+	y	设置滚动条轨迹组成部分的颜色
+                                                                                                                                                                                                                                                                                                                                                                                           为了有助于理解IE中滚动条样式的控制，你可以查看如下的图片：
+    </style>
+</head>
+<body>
+<div  style="width:300px;height:100px;overflow:auto;">
+    <p style="height: 400px;background: #ff33ff "></p>
+</div>
+</body>
+</html>

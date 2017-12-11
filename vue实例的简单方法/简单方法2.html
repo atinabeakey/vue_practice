@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div id="app">
+    <p> 这是Vue的一个简单方法</p>
+    {{ a }}
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        data: {
+            a:1,
+        }
+    })
+    vm.$mount ('#app')
+</script>
+</html>

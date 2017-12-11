@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <p style="background:#0f0" v-show="!msg">input框内没有文字，如果有文字，该段信息自动消失</p>
+    <input type="text" v-model="msg"/>
+    <h3>当文本框里有内容的时候提交按钮显示</h3>
+    <button v-show="msg">提交</button>
+    <h3>如果文本框里有文字展示下面的div</h3>
+    <div style="width: 100px;height: 100px;text-align:center;background: #ff33ff" v-if="msg"></div>
+    <div v-if="msg">input不为空</div>
+    <div v-else>input为空</div>
+
+    <pre>
+        {{$data |json}}
+    </pre>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    var app=new Vue({
+        el:'.box',
+        data:{
+            msg:''
+        }
+    })
+</script>
+</html>

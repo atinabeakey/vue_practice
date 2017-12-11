@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="app">
+      Level  {{usernname }}<br>   <br>
+        <input type="text"  v-model="first"/>
+        <br>   <br>
+
+        <input type="text"  v-model="last"/>
+    </div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    var app=new Vue({
+        el:'.app',
+        data:{
+            first:'Jhon',
+            last:'Bool'
+        },
+        computed:{
+            usernname:function(){
+                return this.first + ' ' + this.last;
+            }
+        }
+
+    })
+</script>
+</html>

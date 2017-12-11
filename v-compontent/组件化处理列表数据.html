@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .status{
+            color: #0f0;
+        }
+        li{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <task-app :list="tasks">//如果没有冒号vue将会默认tasks为字符串，
+
+        </task-app>
+
+    </div>
+    <template id="task-template">
+        <ul>
+            <!--<li :class="task.status ? 'status': '' " v-for="task in tasks">{{ task.text }}</li>-->
+            <li
+                    :class="{'status':task.status} "
+                    v-for="task in list"
+                    @click="toggleTasks(task)"
+            >
+                {{ task.text }}
+            </li>
+            <!--添加多个class名-->
+        </ul>
+    </template>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    Vue.component('task-app',{//task-app和上面的标签名保持一致
+        template:'#task-template',
+        props:['list'],
+        methods:{
+            toggleTasks:function(task){
+                task.status =!task.status;
+            }
+        }
+    });
+    var app=new Vue({
+        el:'.app',
+        data:{
+            box:true,//加入判断时必须要申明
+            tasks:[
+                {text:'go to shopping ',status:false},
+                {text:'go to the movie ',status:true},
+                {text:'go to sleep ',status:false}
+            ]
+        }
+
+    })
+</script>
+</html>

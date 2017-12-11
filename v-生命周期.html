@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="app">
+      {{msg}}
+    </div>
+</body>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script>
+    var app=new Vue({
+        el:'.app',
+        data:{
+            msg:"well"
+        },
+        created (){
+            alert('实例已经创建')
+        },
+        mounted(){
+            alert('编译之前')
+            this.$nextTick(function (){
+                alert('ready被替换')
+            })
+        },
+        beforeDestroy:function(){
+            alert('销毁之前');
+        },
+        /*destroyed:function(){
+            alert('销毁之后');
+        }*/
+    })
+
+    /*点击页面销毁vue对象*/
+    document.onclick=function(){
+        app.$destroy();
+    };
+</script>
+</html>

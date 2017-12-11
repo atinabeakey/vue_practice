@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="app">
+      <p>Level  {{level <= 100 ? '普通会员' :'VIP会员'}}</p>
+      	<p @click='get()'>{{num}}</p>
+    </div>
+    
+</body>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script>
+    var app=new Vue({
+        el:'.app',
+        data:{
+            points:200,
+            level:'普通会员',
+            num:0.9
+        },
+        methods:{
+        	get:function(){
+        		console.log(this.num)
+        		if (this.num.toString().indexOf(".") != -1) {
+	                this.num= this.num.toFixed(3);
+        			console.log(this.num)
+	            }
+        	}
+			
+        }
+    })
+</script>
+</html>

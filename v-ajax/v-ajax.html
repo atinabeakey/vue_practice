@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="example">
+			<p>Original message: "{{ message }}"</p>
+			<p>Computed reversed message: "{{ reversedMessage }}"</p>
+		</div>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-resource.js"></script>
+		<script type="text/javascript">
+				var model = new Vue({
+					 el: '#stockPool',//view层对应的容器的id 
+					 data: { 
+					 	Isdisabled: true, 
+					 	datas: {}//--------------------------->需要渲染的数据，开始为空的，需要method中的方法给其传递值 
+					 }, 
+					 methods: { 
+					 	changeState: function (ev) { 
+					 		var _this = $(ev.target);//获取当前被点击元素的this ，如果直接使用，那么这个this是指当前model
+					 		 _this.closest('tr').find('input').removeAttr('readonly');
+					 	},
+					 	saveState: function (ev) { 
+					 		var that=this;//那么这个this是指当前model 
+					 		var _this = $(ev.target); 
+					 		var _tr=_this.closest('tr').find('input'); 
+					 		if((_tr.attr("readonly"))=="readonly"){ 
+					 			layer.msg('编辑之后才可以保存', {time: 1000, icon: 1}); 
+					 			return false; 
+					 		} 
+					 		var dataObj={}; 
+					 		dataObj.createDateTime=_tr.eq('0').val(); 
+					 		dataObj.stockMainId=_tr.eq('0').attr('stockMainId'); 
+					 		dataObj.stockId=_tr.eq('1').val(); 
+					 		dataObj.stockName=_tr.eq('2').val(); 
+					 		dataObj.stockRose=_tr.eq('3').val().replace(/%/g,''); 　　//　　xxxxxcode------------->进行ajax请求 　　　　
+					 	},　　　　
+					 	getAllStock: function () {　　　　 
+					 		var that=this; 　　 　　
+					 		var loading = layer.load(1, {shade: [0.8, '#393D49']}); 　　　　 
+					 		$.ajax({　　 
+					 			url: 'http://rapapi.org/mockjsdata/16979/v1_0_0/users', 　　　　
+					 			type: 'get', 　　　　
+					 			async: false, 　　　　 
+					 			dataType: 'json', 　　　　 
+					 			success: function (data) {　
+					 			    console.log(data)　　　
+					 				var that= data;//------------->给这个model data的datas赋值，这样在view就可以渲染模板 　　　　
+					 				layer.close(loading); 　　
+					 				console.log(app.data)　　
+					 			}, 
+					 			error: function (data) { 
+					 				　layer.close(loading); 　　　　
+					 			}
+					 		});　
+					 	}  
+					},
+					beforeCreate(){
+	                    console.log('组件实例刚刚被创建');
+	                },
+	                created(){
+	                    console.log('实例已经创建完成');
+	                },
+	                beforeMount(){
+	                    console.log('模板编辑之前');
+	                },
+	                mounted(){
+	                    console.log('模板编辑完成');
+	                }
+					
+				});	
+					/*加载完毕之后，需要执行这个方法，进行页面的首次渲染 注意： 
+					1.数据以及一些属性放在model的data自带属性里面
+					 2.方法放在对应的model的methods自带属性里面 
+					 3.如果需要获取当前元素的this，需要给对应的事件传入$event 例如： v-on:click="changeState($event)"； 
+					 4.methods对应的方法里面的this都是指当前的model 
+					 5.绑定的值可以直接使用函数return出来使用
+					  例如：v-bind:value='formatMomentString(el.createDateTime)'；把这个数据时间格式化 model.getAllStock();*/
+			</script>
+				
+	</body>
+
+</html>

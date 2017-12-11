@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .red{
+            background: #ff33ff;
+        }
+        .blue{
+            color: #0ff;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <!--第一种-->
+    <p :class="{red:true,blue:true}" >这是一个p标签，今天这天气有点冷</p>true或者false来区分class是否生效
+    <!--第二种-->
+    <!--<p :class="json">这是一段文字，动力是努力的源泉</p>-->
+</div>
+</body>
+<script src="../js/vue.min.js"></script>
+<script src="../js/vue-resource.js"></script>
+<script>
+    //第一种
+    new Vue({
+        el:"#box"
+    })
+    //第二种
+    new Vue({
+        el:"#box",
+        data:{
+            json:{
+                red:true,
+                blue:true
+            }
+        }
+    })
+
+</script>
+</html>

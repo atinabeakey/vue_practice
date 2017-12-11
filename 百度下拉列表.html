@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="app">
+        <input type="text" v-model="msg" @keyup="getLlist()">
+        <ul>
+            <li v-for="value in initData.s">
+                {{value}}
+            </li>
+        </ul>
+        <p v-show="initData.length==0"> 暂无数据。。。</p>
+    </div>
+</body>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script src="js/vue-resource.js"></script>
+<script>
+    var app=new Vue({
+        el:'.app',
+        data:{
+            initData:[],
+            msg:''
+        },
+        methods:{
+            getLlist(){
+                this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+                    wd:this.msg
+                },{
+                    jsonp:'cb'
+                }).then(function(res){
+                    console.log(res.data)
+                    this.initData=res.data;
+                },function(res){
+                    console.log(res)
+                });
+            }
+        }
+
+    })
+</script>
+</html>

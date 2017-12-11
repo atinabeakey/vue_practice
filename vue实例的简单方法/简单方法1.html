@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div id="app">
+    <p> 这是Vue的一个简单方法</p>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a:1,
+        }
+    })
+    console.log(vm.$el.querySelector('p'))
+     vm.$el.querySelector('p').style.color = '#0f0'
+</script>
+</html>

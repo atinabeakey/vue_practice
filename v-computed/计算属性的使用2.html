@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div id="app">
+    a ===> {{ a }}
+    <br>
+    b ===> {{ b }}
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            a:1,
+        },
+        computed: {
+            b:{
+                get (){
+                    return this.a +10
+                },
+                set (val){
+                    console.log(val)
+                    this.a = val
+                }
+            }
+        }
+    })
+    document.onclick = function (){
+        vm.b=100
+    }
+</script>
+</html>

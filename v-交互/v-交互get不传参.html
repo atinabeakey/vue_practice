@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+       <button @click="getList()">获取数据</button>
+        <ul>
+            <li v-for="item in items">{{item.username}}</li>
+        </ul>
+    </div>
+<script src="../js/vue.min.js"></script>
+<script src="../js/vue-resource.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            items:''
+        },
+        methods: {
+            getList (){
+                console.log(this)
+                this.$http.post('a.json').then(function(res){
+                    console.log(res)
+                    this.items=res.data;
+                },function(res){
+                    console.log(res.status)
+                });
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

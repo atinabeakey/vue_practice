@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <template id="home">
+        <div>
+            <h1>Home</h1>
+            <p>{{msg}}</p>
+        </div>
+        <div>
+            <ul class="nav nav-tabs">
+                <li>
+                    <a v-link="{ path: '/home/news'}">News</a>
+                </li>
+                <li>
+                    <a v-link="{ path: '/home/message'}">Messages</a>
+                </li>
+            </ul>
+            <router-view></router-view>
+        </div>
+    </template>
+    <template id="news">
+        <ul>
+            <li>News 01</li>
+            <li>News 02</li>
+            <li>News 03</li>
+        </ul>
+    </template>
+    <template id="message">
+        <ul>
+            <li>Message 01</li>
+            <li>Message 02</li>
+            <li>Message 03</li>
+        </ul>
+    </template>
+    <script src="js/vue.js"></script>
+</body>
+</html>

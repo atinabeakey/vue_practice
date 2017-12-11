@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <span v-bind:title="message">
+            今天天气真好！
+        </span>
+    </div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    var app=new Vue({
+        el:'#app',
+        data:{
+            message:'鼠标滑到文字时的时间为：'+new Date()
+        }
+    })
+</script>
+</html>

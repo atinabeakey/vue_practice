@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <counter></counter>
+    <counter></counter>
+    <counter></counter>
+    <counter></counter>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+    Vue.component('counter',{
+        template:'<h1>你好</h1>'
+    });
+    new Vue({
+        el: '#box'
+    });
+</script>
+</html>

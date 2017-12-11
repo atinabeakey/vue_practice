@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+        <input type="text" value="" @keydown="show($event)"/>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el:'#box',
+        data:{
+
+        },
+        methods:{
+            /*第一种方法*/
+            show:function(ev) {
+                alert(ev.keyCode);
+
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+    <div id="box">
+        <ul>
+            <li v-for="todo in todos">{{todo.title}}</li>
+        </ul>
+        <form v-on:submit.prevent="addTodo(newTodo)">
+            <input type="text" v-model="newTodo.title" placeholder="添加字段"/>
+            <br/><br/>
+            <button type="submit">添加1</button>
+        </form>
+        <br/><br/>
+        <button @click="addTodo(newTodo)">添加2</button>
+    </div>
+
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    new Vue({
+        el:'#box',
+        data:{
+            msg:"Hello vue",
+            todos:[{
+                id:1,title:'learn vuejs'
+            },
+                {
+                    id:2,title:'learn vuejs566'
+                },
+            ],
+            newTodo:{id:null,title:''}
+        },
+        methods:{
+            addTodo(newTodo){
+                this.todos.push(newTodo),//将input里的文字添加到ul中
+                this.newTodo={id:null,title:''}//点击添加将文本框的内容清空
+            }
+            /*addTodo:function(newTodo){
+                this.todos.push(newTodo)
+            }*/
+        },
+        watch:{
+            'todos' :function(val, oldval){
+                console.log( val, oldval)
+            }
+        }
+    })
+</script>
+</html>

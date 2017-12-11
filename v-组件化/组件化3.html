@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <counter></counter>
+    <counter></counter>
+</div>
+<template id="counter-template">
+    <button @click="count ++">加{{count}}</button>
+</template>
+<div id="example">
+    <my-component></my-component>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    //向子组件传递数据
+    //省略extend方法，vue内部调用
+    Vue.component('my-component', {
+        //模板里不支持驼峰的属性写法，需要转换为‘-’连接的属性写法
+        data:function(){
+            return{
+                parentMsg: '雨歇微凉'
+            }
+        },
+        template: '<div>'
+        +'<input v-model="parentMsg">'
+        +'<br>'
+        +'<child-component :my-message="parentMsg"></child-component>'
+        +'</div>',
+        components: {
+            'child-component': {
+                props: ['myMessage'],
+                template: '<div>{{myMessage}}</div>'
+            }
+        }
+    });
+    // 创建根实例1
+    new Vue({
+        el: '#example'
+    });
+</script>
+</html>
