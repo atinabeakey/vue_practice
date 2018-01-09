@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p v-red ="color">
+            {{msg}}
+        </p>
+        <input type="text" @keydown.a="show">
+    </div>
+    <script>
+       /* Vue.directive(指令名称,function(){
+            回调函数
+        })*/
+        Vue.directive('red',function(el,data){
+            console.log(data)
+            el.style.color = data.value
+            el.style.background = '#f00'
+        })
+        new Vue({
+            el:'#box',
+            data:{
+                color:'#fff',
+                msg:'这是自定义指令的实例'
+            },
+            methods:{
+                show:function(){
+                    alert(1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

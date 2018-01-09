@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding:0;
+        }
+        .drag {
+            width: 100px;
+            height: 100px;
+            background: #00e4be;
+            position:absolute;
+            top:0;
+            left:0;
+            cursor: move;
+        }
+    </style>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <div class="drag"  v-drag >眼泪没从眼眶流出来，全部流进了心里,泪水的盐分太重，一下子把满是伤口的心扎的刺痛</div>
+    </div>
+    <script>
+       /* Vue.directive(指令名称,function(){
+            回调函数
+        })*/
+        Vue.directive('drag',function(el){
+            el.onmousedown = function(ev){
+                var disX = ev.clientX - el.offsetLeft;
+                var disY = ev.clientY - el.offsetTop;
+
+                document.onmousemove = function (ev) {
+                    var Left = ev.clientX - disX ;
+                    var Top = ev.clientY - disY ;
+                    el.style.left = Left +'px';
+                    el.style.top = Top +'px';
+                }
+            }
+            el.onmouseup = function (ev) {
+                ev = ev||event
+                document.onmousemove = null;
+                document.onmouseup = null;
+
+            }
+        })
+        new Vue({
+            el:'#box',
+            data:{
+                msg:'这是自定义指令的实例'
+            }
+        })
+    </script>
+</body>
+</html>
