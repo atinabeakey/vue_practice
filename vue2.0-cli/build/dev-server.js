@@ -1,15 +1,21 @@
-require('./check-versions')()
+//检查node和npm的版本
+require('./check-versions')();
 
+//获取 config/index.js 的配置
 var config = require('../config')
+
+//如果判断当前的环境(development/product)，如果都不是则使用config的配置环境
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
-
+//打开浏览器的插件
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
+//跨域代理（中间件）
 var proxyMiddleware = require('http-proxy-middleware')
+//webpack配置环境
 var webpackConfig = require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
