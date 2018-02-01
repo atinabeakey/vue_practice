@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <counter></counter>
+</div>
+<template id="parent-template">
+    <div>
+        <h3>
+            我是父级获取子组件数据:{{msg}}
+        </h3>
+        <child @child-msg ='get'></child>
+    </div>
+</template>
+<template id="child-template">
+    <div>
+        <p>我是子组件:{{childMsg}}</p>
+        <button @click="send">Send</button>
+    </div>
+
+</template>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+   /* Vue.component('counter',{
+        template:'#counter-template',
+        data:function(){
+            return {count :0}
+        }
+    });*/
+    new Vue({
+        el: '#box ',
+        components:{
+            counter:{
+                data(){
+                    return {
+                        msg:'我是父组件的数据',
+                        msg2:'aqaq'
+                    }
+
+                },
+                template:'#parent-template',
+                methods:{
+                    get(msg){
+                        console.log(msg)
+                        this.msg = msg
+                    }
+                },
+                components:{
+                    'child':{
+                       data(){
+                           return {
+                               childMsg :'我是子组件的数据'
+                           }
+                       },
+                        template:'#child-template',
+                        methods:{
+                           send(){
+                               console.log(12)
+                               this.$emit('child-msg',this.childMsg)
+                           }
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</html>

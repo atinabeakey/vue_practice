@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网格组件+组件版本</title>
+    <!--   <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        #div1 {
+            margin-top: 100px;
+        }
+        #div1 th[class='active']{
+            background-color: #a1defc;
+        }
+        #div1 th[class='active'] span[class='caret']{
+            transform:rotate(-180deg);
+            transition: all 0.3s ease;
+            color: white;
+        }
+        #div1 th span[class='caret']{
+            transform:rotate(0deg);
+            transition: all 0.3s ease;
+        }
+        #div1 th span.active{
+            visibility:hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" class="container">
+    <label>
+        serch:<input type="text" v-model="filterKey">
+    </label>
+    <table class="table">
+        <thead>
+        <tr class="bg-info">
+            <th v-for="key in gridColumns" @click="sortBy(key)" :class="{active : sortKey == key}">
+                {{key | capitalize}}
+                <!--{{key}}-->
+                <!--<span class="caret" v-show="sortStatus">-->
+                <span class="caret" :class="{active :sortStatus }">
+                </span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="entry in filteredData">
+            <td v-for="key in gridColumns">
+                {{entry[key]}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="//cdn.bootcss.com/vue/2.1.10/vue.js"></script>
+
+<script type="text/x-template" id="grid-template">
+
+</script>
+
+<script>
+
+   /* Vue.component('demo-grid', {
+        template: '#grid-template',
+        props: {
+            data: Array,
+            columns: Array,
+            filterKey: String
+        },
+
+    });*/
+
+    let vm = new Vue({
+        el: '#div1',
+        data: function () {
+            var sortOrders = {};
+            let columns = ['name', 'capacity']
+            columns.forEach(function (key) {
+                console.log(key)
+                sortOrders[key] = 1
+            });
+            return {
+                sortKey: '',
+                sortStatus:true,
+                sortOrders: sortOrders,
+                filterKey: '',
+                gridColumns: ['name', 'capacity'],
+                gridName:['名称','数量'],
+                gridData: [
+                    { name: '中心实验柜', capacity: 30, status: 'empty' },
+                    { name: '柜子', capacity: 26, status: 'empty' },
+                    { name: '化学品柜', capacity: 22, status: 'empty' },
+                    { name: '危险品', capacity: 36, status: 'empty' }
+                ]
+            }
+        },
+        filters: {
+            capitalize: function (value) {
+                if (!value) return '';
+//                value =
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        },
+        methods: {
+            sortBy: function (key) {
+//                this.sortKey = key;
+                this.sortStatus=false
+                this.sortOrders[key] = this.sortOrders[key] * -1
+                console.log( this.sortOrders[key])
+                this.sortOrders[key] ===-1 ? this.sortKey = key : this.sortKey =''
+            }
+        },
+        computed: {
+            filteredData: function () {
+                let data = this.gridData;
+                console.log()
+                let filterKey = this.filterKey && this.filterKey.toLowerCase();
+                if (filterKey) {
+                    data = data.filter((row) => {
+                        return Object.keys(row).some((key) => {
+                            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                        })
+                    });
+
+                }
+                if(data.length){
+                    console.log(this.gridData[0].name)
+                }
+                let sortKey = this.sortKey;
+                console.log(sortKey)
+                if (sortKey) {
+                    /*指定这次排序(降序还是升序)*/
+                    let order = this.sortOrders[sortKey];
+                   /* console.log(order)*/
+                    /**
+                     * 若返回值为负，则表示 A 在排序后的序列中出现在 B 之前。
+                     * 若返回值为 0，则表示 A 和 B 具有相同的排序顺序。
+                     * 若返回值为正，则表示 A 在排序后的序列中出现在 B 之后。
+                     * */
+                    /*data = data.slice().sort(function (a,b){
+                        let num1=a[sortKey];
+                        let num2 = b[sortKey]
+                        return (num1===num2 ? 0:num1>num2 ?1:-1)*order
+                    })*/
+                    data = data.sort((a,b) =>{
+                        console.log(a)
+                        let num1=a[sortKey];
+                        let num2 = b[sortKey]
+                        return (num1===num2 ? 0:num1>num2 ?1:-1)*order
+                    })
+                }else{
+                    
+                }
+                return data;
+            }
+        }
+
+    });
+
+</script>
+</html>

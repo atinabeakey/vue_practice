@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" class="parentBox">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>电子速热平台</title>
+		<link rel="shortcut icon" href="../img/logo_fav.png" />
+		
+		<link rel="stylesheet" href="../plugins/bootstarp/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-table/bootstrap-table.min.css" />
+		<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common_style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/data_list1.css" />
+	</head>
+
+	<body>
+		<div class="accountBox boxInfo" id="dataList" v-cloak>
+			<div class="accountTop boxTop">
+				<span id="backList">运行监控 /</span>
+				<span class="location">
+					当前位置：<i class="local locationCol">速热站</i>
+				</span>
+				<span class="search" tabindex="1" hidefocus="true" >
+					<input  type="text" placeholder="请输入关键字查找速热站" id="searchId"  v-model="filterStation" />
+					<i class="fa fa-search"></i>
+				</span>
+
+			</div>
+			<hr>
+			<div class="boxList">
+				<table class="table table-hover" id="dtuList">
+					<thead>
+					<tr class="table_head" >
+						<th>名称</th>
+						<th v-for="(item,index) in gridColumns"
+							@click="sortStation(item,index)"
+							:class="{active : sortKey == item}"
+							@mouseover="showOrHideTip(index,0)"
+							@mouseout="showOrHideTip(index,1)"
+						>
+							<em>{{gridName[index]}}</em>
+							<!--v-text="gridName[index]"-->
+							<i class="fa fa-laptop hidden" data-toggle="tooltip" data-placement="top"
+							   title="查看" v-show="labelData[index].tip"
+							   @click.stop="stationCompareChart(labelData[index].tag_id)"
+							></i>
+							<span class="caret" :class="{active :labelData[index].sort }"></span>
+						</th>
+					</tr>
+					</thead>
+					<tbody v-show ='hasData'>
+						<tr v-for="(station,trIndex) in filterStationData" :class="{alarmTr : station.alarmTag.length>0}" >
+							<td>
+								<b :class='{onLine : station.status}'></b>
+								<span>
+									<em v-text="station.station_name"></em>
+									<em >{{station.data_time !==null && station.data_time !==undefined ? station.data_time :'-'}}</em>
+								</span>
+							</td>
+							<td v-for="(key,tdIndex) in gridColumns"
+								@mouseenter = 'showOrHidetdTip($event,0)'
+								@mouseleave = 'showOrHidetdTip($event,1)'
+								@click = 'stationTagChart(station.station_name,station.station_id,tdIndex)'
+
+							>
+								<div v-for="(alarm,index) in station.alarmTag" style="display: none;">
+									{{key ===alarm ? alarmKey = alarm : ''}}
+								</div>
+								<em >
+									{{station.data===null ? '-' : (station.data[key] !==null && station.data[key] !==undefined  ? station.data[key] : '-' )}}
+								</em>
+								<i class="fa fa-laptop hidden" data-toggle="tooltip"
+									   data-placement="top" title="查看"
+									></i>
+
+
+							</td>
+						</tr>
+					</tbody>
+					<tbody v-show ='noData'>
+						<tr >
+							<td colspan="18" style="text-align: center">没有找到匹配项</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+		<script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+		<script type="text/javascript" src="../plugins/bootstarp/js/bootstrap.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../plugins/bootstrap-table/bootstrap-table.min.js" charset="utf-8"></script>
+		<script src="../js/data_list1.js?t=1.17" type="text/javascript"></script>
+	</body>
+
+</html>

@@ -1,0 +1,66 @@
+body,html,h1,h2,h3,ul,p,label,div,ol,ul,h1,h2,h3,h4,h5,h6,header,nav,article,footer,dl,dd,dt,tr,th,td{
+	margin: 0;
+	padding: 0;
+	font-family: "Microsoft YaHei","Hiragino Sans GB","Hiragino Sans GB W3","微软雅黑","Helvetica Neue",Arial,sans-serif;
+}
+
+li{
+	list-style: none;
+}
+
+button,input,select,textarea{
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
+	outline: none;
+}
+select{
+	appearance: none;
+	-ms-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: url("../img/select_arrow.png") no-repeat scroll right center transparent;
+}
+input::-moz-focus-inner,button::-moz-focus-inner{
+	padding: 0;
+}
+
+img{
+	display: block;
+	border: none;
+}
+
+a{
+	text-decoration: none;
+}
+b,strong{
+	font-weight: 100;
+}
+i,em{
+	font-style:normal ;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: 100;
+}
+iframe{
+	border: none ;
+}
+textarea{
+	resize: none;
+}
+/*tip信息提示*/
+.tooltip-inner {
+	background: #1ab394;
+	opacity: 0.88;
+	filter:alpha(opacity=88);
+	white-space:nowrap;
+}
+.tooltip.top .tooltip-arrow{
+	border-top-color:#1ab394;
+	opacity: 0.88;
+	filter:alpha(opacity=88);
+}
+.layui-layer-lan .layui-layer-title{
+	background: #1ab395 !important;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <counter></counter>
+    <outer></outer>
+    <inner></inner>
+    <inner></inner>
+    <inner></inner>
+</div>
+<template id="counter-template">
+    <button @click="count ++">加{{count}}</button>
+</template>
+<template id="counter">
+    <h1>父组件：{{msg}}<child :child-msg='msg2'></child></h1>
+
+</template>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script type="text/javascript">
+   /* Vue.component('counter',{
+        template:'#counter-template',
+        data:function(){
+            return {count :0}
+        }
+    });*/
+    new Vue({
+        el: '#box',
+        components:{
+            counter:{
+                data(){
+                    return {
+                        msg:'我是父组件的数据',
+                        msg2:'aqaq'
+                    }
+
+                },
+//                template:'<h2>我是父组件->{{msg}} <child></child></h2>',
+                template:'#counter',
+                components:{
+                    'child':{
+                        props:['childMsg'],
+                       /* props:{
+                            'childMsg':String
+                        },*/
+                        template:'<h3>我是子组件:{{childMsg}}</h3>',
+
+                    }
+                }
+            }
+        }
+    });
+  /*//定义内部组件，内部组件必须在外部组件之前定义
+  const Inner = Vue.extend({template: '<div style="color:red">这里是内部组件</div>'})
+
+  //定义外部组件
+  const Outer = Vue.extend({
+      template: '<div style="border: 1px solid #ccc;width:200px;">外部组件内部<inner-component></inner-component></div>',
+      components: {
+          // 调用内部组件
+          'inner-component': Inner
+      }
+  })
+
+  // 注册父组件
+  Vue.component('outer', Outer);
+  //复用子组件。
+  Vue.component('inner', Inner);
+  // 创建根实例，所有组件都需要在根实例之前创建。
+
+  new Vue({
+      el: '#box',
+  })*/
+</script>
+</html>
