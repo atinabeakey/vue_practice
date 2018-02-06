@@ -33,13 +33,37 @@
             <router-view></router-view>
         </div>
     </div>
+    <template id="home">
+        <div>
+            <h3>我是主页</h3>
+            <div>
+                <router-link to="/home/login">登录</router-link>
+                <router-link to="/home/regist">注册</router-link>
+            </div>
+            <div>
+                <router-view></router-view>
+            </div>
+        </div>
+    </template>
+    <template id="login">
+        <div>登录界面</div>
+    </template>
+    <template id="reg">
+        <div>注册界面</div>
+    </template>
 </body>
 <script type="text/javascript" src="../js/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/vue-router/2.2.0/vue-router.js"></script>
 <script>
     const App = Vue.extend();
     const Home = Vue.extend({
-        template:'<h3>我是主页</h3>'
+        template:'#home'
+    })
+    const Login =Vue.extend({
+        template:'#login'
+    })
+    const Regist =Vue.extend({
+        template:'#reg'
     })
     const News = Vue.extend({
         template:'<h3>我是新闻</h3>'
@@ -53,6 +77,16 @@
             {
                 path: '/home',
                 component: Home ,
+                children:[
+                    {
+                        path:'/home/login',
+                        component:Login
+                    },
+                    {
+                        path:'/home/regist',
+                        component:Regist
+                    }
+                ]
 //              /  redirect: '/home'
             },
             {
