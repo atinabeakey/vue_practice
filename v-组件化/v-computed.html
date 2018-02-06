@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .completed{
+            color: #00C1B3;
+        }
+    </style>
+</head>
+<body >
+    <div id="box">
+        <h4>My list {{todos.length}} </h4>
+        <h5>My list {{todoCount}}</h5>
+        <todo-items :todos="todos"></todo-items>
+        <!-- <todo-form :todos="todos"></todo-form> -->
+        <pre>
+            {{$data | json}}<!--打印data方法-->
+        </pre>
+    </div>
+</body>
+<script type="text/x-template" id="todo-items-template">
+    <ul>
+        <li v-for="(todo ,index) in todos"
+            v-bind:class="{'completed':todo.completed}"
+            @click="editClass(todo)"
+        >
+            <button v-on:click="deleteTodo(index)">删除</button>
+            &nbsp;&nbsp;&nbsp; {{todo.title}}
+            <br/><br/>
+        </li>
+    </ul>
+</script>
+<script type="text/x-template" id="todo-add-form-template">
+    <form v-on:submit.prevent="addTodo(newTodo)">
+        <input type="text" v-model="newTodo.title" placeholder="添加字段"/>
+        <br/><br/>
+        <button type="submit">添加1</button>
+    </form>
+
+    <br/><br/>
+    <button @click="addTodo(newTodo)">添加2</button>
+</script>
+
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    Vue.component('todo-items',{
+        template:'#todo-items-template',
+        props:['todos'],
+        methods:{
+            deleteTodo(index){
+                this.todos.splice(index,1)
+            },
+            editClass(todo){
+                todo.completed =! todo.completed
+            }
+        }
+    });
+    Vue.component('todo-form',{
+        template:'#todo-add-form-template',
+        props:['todos'],
+        data() {
+            return{
+                newTodo:{id:null,title:'','completed':false}
+            }
+        },
+        methods:{
+            addTodo(newTodo){
+                this.todos.push(newTodo),//将input里的文字添加到ul中
+                    this.newTodo={id:null,title:'',completed:false}//点击添加将文本框的内容清空
+            }
+        }
+    });
+    new Vue({
+        el:'#box',
+        data:{
+            msg:"Hello vue",
+            todos:[{
+                id:1,title:'learn vuejs','completed':true
+            }]
+
+        },
+        computed:{
+          todoCount:function(){
+              return this.todos.length;
+          }
+        }
+    })
+</script>
+</html>

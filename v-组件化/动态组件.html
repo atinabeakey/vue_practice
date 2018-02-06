@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <input type="button" @click="a='aaa'" value="a组件">
+    <input type="button" @click="a='bbb'" value="b组件">
+    <component :is="a"></component>
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+
+
+    // 创建根实例1
+    new Vue({
+        el: '#example',
+        data(){
+            return{
+                a:'aaa',
+                msg:'hhh'
+            }
+
+        },
+        components:{
+            'aaa':{
+                template:'<h3>我是A组件</h3>'
+            },
+            'bbb':{
+                template:'<h3>我是B组件</h3>'
+            }
+        }
+    });
+</script>
+</html>
