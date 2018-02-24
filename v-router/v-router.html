@@ -37,7 +37,38 @@
 <script type="text/javascript" src="../js/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/vue-router/2.2.0/vue-router.js"></script>
 <script>
-    const App = Vue.extend();
+    let Home = Vue.component('',{
+         template:'<h3>我是主页</h3>'
+    })
+    let News = Vue.component('',{
+        template:'<h3>我是新闻</h3>'
+    })
+    const router = new VueRouter({
+        routes: [
+            {
+                path: "/",
+                redirect: '/home'
+            },
+            {
+                path: '/home',
+                component: Home ,
+            },
+            {
+                path: '/news',
+                component: News
+            }
+        ]
+    })
+
+    var app = new Vue({
+        el: '.box',
+        data: {
+            msg: ''
+        },
+        router:router,
+        component:[Home,News]
+    })
+    /*const App = Vue.extend();
     const Home = Vue.extend({
         template:'<h3>我是主页</h3>'
     })
@@ -69,5 +100,5 @@
         },
         router:router,
         components:App
-    })
+    })*/
 </script></html>
