@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text"/>
+    {{info.age}}
+</div>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            info:{name:'atina',age:20},
+            b:2
+        }
+    })
+    vm.$watch('info',function(val,oldVal){
+        console.log(val)
+        console.log(oldVal)
+    },{deep:true})
+    document.onclick = function(){
+        vm.info.age=18
+    }
+</script>
+</body>
+</html>

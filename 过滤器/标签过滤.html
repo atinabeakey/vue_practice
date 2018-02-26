@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    {{a | filterHtml}}
+</div>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    Vue.filter(name,function(){
+        //处理方法
+    })
+    Vue.filter('filterHtml',function(msg){
+        return msg.replace(/<[^<]+>/g,'')
+    })
+    new Vue({
+        data:{
+            a:'<p>你好</p>'
+        },
+        methods:{
+
+        }
+    }).$mount('.box')
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    #box{
+        width: 100%;
+        text-align: center
+    }
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: #1ab394;
+            margin: 0 auto;
+        }
+        
+        .fade-enter-active, .fade-leave-active {
+           transition: opacity 3.5s
+        }
+        .fade-enter, .fade-leave-active {
+           transform: translateX(200px) 2s ease;
+           opacity: 0
+        } 
+    </style>
+</head>
+<body>
+<div id="box">
+    <input type="button" value="按钮" @click="toggle"/>
+    <br/>
+    <transition name="fade">
+       <!-- <p v-if="open">hello</p> -->
+        <div id="div1" v-show="open" class='animated' ></div>
+    </transition>
+</div>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script>
+    new Vue({
+        el:'#box',
+        data:{
+            open:true
+        },
+        methods:{
+            toggle(){
+                this.open =!this.open;
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

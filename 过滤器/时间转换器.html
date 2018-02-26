@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    {{a | date}}
+</div>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+    Vue.filter(name,function(){
+        //处理方法
+    })
+    Vue.filter('date',function(num){
+        let myDate = new Date(num)
+        return myDate.getFullYear()+'-'+ (myDate.getMonth()+1) +'-'
+            +myDate.getDay()
+    })
+    new Vue({
+        data:{
+            a:Date.now()
+        },
+        methods:{
+
+        }
+    }).$mount('.box')
+</script>
+</body>
+</html>
