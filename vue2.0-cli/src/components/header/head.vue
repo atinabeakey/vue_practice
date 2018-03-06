@@ -14,6 +14,8 @@ export default {
     height:40px;
     line-height: 40px;
     background: #1281d8;
+    position: fixed;
+    top:0;
   }
   #head-top p{
     color: #fff;

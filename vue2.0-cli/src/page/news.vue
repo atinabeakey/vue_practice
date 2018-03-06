@@ -1,12 +1,12 @@
 <template>
-  <div class="news">
-
+  <div class="news common">
+    <p>{{msg}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'News',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

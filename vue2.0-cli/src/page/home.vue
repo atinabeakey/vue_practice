@@ -1,14 +1,18 @@
 <template>
-  <div class="home">
-    <head-top></head-top>
+  <div class="home common">
     <p>{{msg}}</p>
-
+    <ul>
+      <router-link tag="li" to="/detial/001">
+        <a>换热站1</a>
+      </router-link>
+      <router-link tag="li" to="/detial/002">
+        <a>换热站2</a>
+      </router-link>
+    </ul>
+    <div class="box"></div>
   </div>
 </template>
-
 <script>
-//  import headTop from 'header/head.vue';
-// import headTop from 'header/head.vue';
 export default {
 //  name: 'Home',
   data () {
@@ -16,24 +20,14 @@ export default {
       msg: '我是主页信息'
     };
   },
-//  components: {headTop}
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.box{
+  height:1000px;
+  width:100%;
+  background: #f0ad4e;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
