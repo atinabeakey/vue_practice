@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <div id="box">
+        父级: ->{{giveData.a}}
+        <br>
+        <child :msg="giveData"></child>
+    </div>
+</div>
+<template id="child">
+    <div>
+        <span>我是子组件</span>
+        <input type="button" value="按钮" @click="change">
+        <strong>{{msg.a}}</strong>
+    </div>
+</template>
+</body>
+<script type="text/javascript" src="../js/vue.min.js"></script>
+<script>
+
+
+    // 创建根实例1
+    new Vue({
+        el: '#example',
+        data:{
+            giveData:{
+                a:'我是父组件数据'
+            }
+        },
+        components:{
+            child:{
+                template:'#child',
+                props:['msg'],
+                methods:{
+                    change(){
+                        this.msg.a = '改变父组件'
+                    }
+
+                }
+            }
+        }
+    });
+</script>
+</html>
