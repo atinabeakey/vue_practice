@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
     <style>
         .router-link-active a{
             font-size:20px;
@@ -20,8 +21,11 @@
                 <a>新闻</a>
             </router-link>
         </ul>
-        <div>
-            <router-view></router-view>
+        <div >
+            <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+                <router-view></router-view>
+            </transition>
+
         </div>
     </div>
     <template id="home">
@@ -30,6 +34,8 @@
             <div>
                 <router-link to="/home/login">登录</router-link>
                 <router-link to="/home/regist">注册</router-link>
+                <router-link to="/home/apple/area/100">位置大小</router-link>
+
             </div>
             <div>
                 <router-view></router-view>
@@ -59,6 +65,11 @@
     const News = Vue.extend({
         template:'<h3>我是新闻</h3>'
     })
+    const arae = {
+        template:`<div>
+                    <p>{{$route.params}}</p>
+                </div>`
+    }
     const router = new VueRouter({
         routes: [
             {
@@ -76,6 +87,10 @@
                     {
                         path:'/home/regist',
                         component:Regist
+                    },
+                    {
+                        path:':name/area/:area',
+                        component:arae
                     }
                 ]
 //              /  redirect: '/home'
@@ -87,7 +102,7 @@
         ]
     })
 
-    var app = new Vue({
+    const app = new Vue({
         el: '.box',
         data: {
             msg: ''

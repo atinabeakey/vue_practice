@@ -14,12 +14,14 @@
             background: #1ab394;
             margin: 0 auto;
         }
-        
+
         .fade-enter-active, .fade-leave-active {
-           transition: opacity 3.5s
+           transition: 3s all ease;
         }
-        .fade-enter, .fade-leave-active {
-           transform: translateX(200px) 2s ease;
+        .fade-enter-active{
+            opacity: 1;
+        }
+        .fade-enter, .fade-leave-active{
            opacity: 0
         } 
     </style>
@@ -33,7 +35,7 @@
         <div id="div1" v-show="open" class='animated' ></div>
     </transition>
 </div>
-<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="../js/vue.min.js"></script>
 <script>
     new Vue({
         el:'#box',
