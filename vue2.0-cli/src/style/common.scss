@@ -19,3 +19,7 @@ h4,h5, h6, i, b, textarea, button, input, select, figure{
 .common{
   margin:40px 0;
 }
+$color:#333;
+div{
+  background: $color
+}

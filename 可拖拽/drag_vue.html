@@ -43,23 +43,43 @@
             margin-bottom:0;
             padding-right:10px;
         }
+        .over{
+            background: #f0ad4e;
+            color: #f00;
+        }
         [v-cloak]{
             display:none;
         }
     </style>
 </head>
 <body >
-
-<!--<div class='drag-content' id="dragCon" >
-    <div class='project-content'>
-        <div class='select-item' draggable='true' @dragstart='drag($event,index)' v-for="(pjdt,index) in projectdatas">{{pjdt.name}}</div>
+<div class='drag-content' id="dragCon" >
+    <div class="all" style="border: 2px solid #f00;" @dragstart="dragAll($event)" @dragover='allowDrop($event)' >
+        <h3>全部</h3>
+        <div class='project-content' @drop='backData($event)'  style="background: #f0ad4e;cursor: pointer" @dragover='allowDrop($event)' >
+            <div class='select-item'
+                 @dragstart='drag($event,index)'
+                 v-if="pjdt.type ===1"
+                 v-for="(pjdt,index) in projectdatas">
+                {{pjdt.name}}
+                <span draggable='true'>urfurghrg</span>
+            </div>
+        </div>
     </div>
     <div class='people-content'>
-        <div class='drag-div' v-for="ppdt in peopledata" @drop='drop($event)' @dragover='allowDrop($event)' @dragend="release($event)">
+        <div class='drag-div' v-for="(ppdt,index) in peopledata" @drop='drop($event,index)'  @dragover='allowDrop($event)'>
             <div class='select-project-item'>
                 <label class='drag-people-label'>{{ppdt.name}}:</label>
             </div>
-        </div>
+            <ul class="select">
+              <li v-for="item in ppdt.proData" class="select-item" draggable='true'
+                  @dragstart='back(item)'>
+                 {{ item.name}}
+              </li>
+            </ul>
+        </div>、
+
+
     </div>
 </div>
 <script type="text/javascript" src="../js/vue.min.js"></script>
@@ -67,36 +87,45 @@
     var dom;
     var ss = new Vue({
         'el':'#dragCon',
+        index:'',
         data:{
+            copyData: [],
             projectdatas:[{
                 id:1,
+                type:1,
                 name:'葡萄'
             },{
                 id:2,
+                type:1,
                 name:'芒果'
             },{
                 id:3,
+                type:1,
                 name:'木瓜'
             },{
                 id:4,
+                type:1,
                 name:'榴莲'
             }],
-
-
             peopledata:[{
                 id:1,
-                name:'小颖'
+                name:'小颖',
+                proData:[]
             },{
                 id:2,
-                name:'hover'
+                name:'hover',
+                proData:[]
             },{
                 id:3,
-                name:'空巢青年三 '
+                name:'空巢青年三 ',
+                proData:[]
             },{
                 id:3,
-                name:'一丢丢'
-            }]
-
+                name:'一丢丢',
+                proData:[]
+            }],
+            peopleIndex:'',
+            relseItem :''
         },
         mounted:function(){
             this.$nextTick(function(){
@@ -106,155 +135,69 @@
         watch:{
             projectdatas:{
                 handler:function(val,oldval){
-
+                    console.log(val)
+                    console.log(oldval)
                 },
                 deep:true
             },
             peopledata:{
                 handler:function(val,oldval){
-
+                    console.log(val)
+                    console.log(oldval)
                 },
                 deep:true
             }
         },
 
         methods: {
-            drag:function(event,index){
-                console.log(event.target);
-                console.log('拖拽');
-                console.log(index);
-                dom = event.currentTarget
+            back(item){
+                console.log(item)
+                this.relseItem = item;
             },
-            drop:function(event){
-                console.log(event.target);
-                console.log('成功')
-                event.preventDefault();
-                event.target.appendChild(dom);
+            drag:function(ev,index){
+                console.log( ev.target)
+                this.index = index;
+//                ev.target.classList.add('over');
+                this.copyData =   this.projectdatas;
+            },
+            dragAll(ev){
+                console.log(ev.target)
+            },
+            drop:function(ev,n){
+                console.log(33)
+                ev.preventDefault();
+//                if(ev.target.classList.contains('drag-div')){}
+                //oEvent.stopPropagation();
+                if(this.index){
+                    this.peopledata[n].proData.push(this.copyData[this.index]);
+                    this.projectdatas[this.index].type = 0;
+                }
+
+
+            },
+            backData(ev){
+                for(let list of this.projectdatas){
+                    if(this.relseItem.id === list.id){
+                        list.type = 1;
+                    }
+                }
+                for(let i in this.peopledata){
+                    for(let j in this.peopledata[i].proData){
+                        if(this.peopledata[i].proData[j].id === this.relseItem.id){
+                            this.peopledata[i].proData.splice(j,1);
+                        }
+                    }
+                }
             },
             allowDrop:function(event){
                 event.preventDefault();
             },
-            release(ev){
-                console.log('释放');
-                console.log(ev.target);
-                document.querySelector('.project-content').appendChild(ev.target);
-            }
         }
 
     });
 
 
-</script>-->
-<div id="demo1" class="relase">
-    <ul class="panel-list">
-        <li class="panel-item"></li>
-        <li class="panel-item"></li>
-        <li class="panel-item"></li>
-        <li class="panel-item"></li>
-        <li class="panel-item"></li>
-    </ul>
-    <h2>拖拽下面的方块到上面任意容器中</h2>
+</script>
 
-    <!-- 设置draggable使元素成为可拖拽元素 -->
-    <div class="movabe" style="width: 200px;height: 200px;background: #f0ad4e">
-        <span class="movable" id="demo1-src" draggable="true"></span>
-    </div>
-
-
-    <style>
-        #demo1 {
-            margin: 20px;
-        }
-        #demo1 .panel-list {
-            overflow: hidden;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        #demo1 .panel-item {
-            float: left;
-            margin-right: 30px;
-            width: 100px;
-            height: 100px;
-            background: #ddd;
-            border: 1px solid #ddd;
-        }
-        #demo1-src {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: purple;
-        }
-        #demo1 .over {
-            border: 1px dashed #000;
-            -webkit-transform: scale(0.8, 0.8);
-        }
-    </style>
-    <script>
-        (function () {
-
-            var dnd = {
-                // 初始化
-                init: function () {
-                    var me = this;
-                    me.src = document.querySelector('#demo1-src');
-                    me.panelList = document.querySelector('.panel-list');
-                    me.panelList1 = document.querySelector('.relase');
-
-                    // 为拖拽源监听dragstart,设置关联数据
-                    me.src.addEventListener('dragstart', me.onDragStart, false);
-
-                    // 拖拽鼠标移入元素,在拖放目标上设置视觉反馈
-                    me.panelList.addEventListener('dragenter', me.onDragEnter, false);
-                    me.panelList1.addEventListener('dragenter', me.onDragEnter, false);
-
-                    // 取消元素dragover默认行为,使其可拖放
-                    me.panelList.addEventListener('dragover', me.onDragOver, false);
-                    me.panelList1.addEventListener('dragover', me.onDragOver, false);
-
-                    // 拖拽移出元素,清除视觉反馈
-                    me.panelList.addEventListener('dragleave', me.onDragLeave, false);
-                    me.panelList1.addEventListener('dragleave', me.onDragLeave, false);
-
-                    // 鼠标释放,在拖放目标上接收数据并处理
-                    me.panelList.addEventListener('drop', me.onDrop, false);
-                    me.panelList1.addEventListener('drop', me.onDrop, false);
-                },
-                onDragStart: function (e) {
-                    e.dataTransfer.setData('text/plain', 'demo1-src');
-                },
-                onDragEnter: function (e) {
-                    if (e.target.classList.contains('panel-item')) {
-                        e.target.classList.add('over');
-                    }
-                },
-                onDragLeave: function (e) {
-                    if (e.target.classList.contains('panel-item')) {
-                        e.target.classList.remove('over');
-                    }
-                },
-                onDragOver: function (e) {
-                    e.preventDefault();
-                },
-                onDrop: function (e) {
-                    var id = e.dataTransfer.getData('text/plain');
-                    var src = document.getElementById(id);
-                    var target = e.target;
-                    console.log(target.classList)
-                    if (target.classList.contains('panel-item')) {
-                        target.appendChild(src);
-                        target.classList.remove('over');
-                    }else{
-                        document.querySelector('.movabe').appendChild(src);
-                        target.classList.remove('over');
-                    }
-                }
-
-            };
-
-            dnd.init();
-        }());
-    </script>
-</div>
 </body>
 </html>

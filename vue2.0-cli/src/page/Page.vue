@@ -4,7 +4,7 @@
       <template slot-scope="{columnNum,columnIndex}">
         <water-follow :list="list" :columnNum="columnNum" :columnIndex="columnIndex">
           <template slot-scope="{item,index}">
-            <div class="my-box" :style="{height:item+'px'}">{{item}}-{{index}}    {{columnNum}}</div>
+            <div class="my-box" :style="{height:item+'px'}">{{item}}-{{index}}</div>
           </template>
         </water-follow>
       </template>
@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import WFColumn from './waterFollow/WFColumn';
-import WaterFollow from './waterFollow/WaterFollow';
+import WFColumn from '../waterFollow/WFColumn'
+import WaterFollow from '../waterFollow/WaterFollow'
 export default {
   name: 'page',
   components: {WaterFollow, WFColumn},
@@ -25,9 +25,9 @@ export default {
   },
   created () {
     // 有初始数据
-    // for (let i = 0; i < 50; i++) {
-    //   this.list.push(Math.floor(Math.random() * 301 + 200))
-    // }
+    for (let i = 0; i < 50; i++) {
+      this.list.push(Math.floor(Math.random() * 301 + 200))
+    }
   },
   mounted () {
     // 模拟网络请求
@@ -36,7 +36,6 @@ export default {
       for (let i = 0; i < 50; i++) {
         this.list.push(Math.floor(Math.random() * 301 + 200))
       }
-      console.log(this.list)
     }, 1000)
     // -- 分割 --
     // 模拟数据不断变化
@@ -47,18 +46,18 @@ export default {
     //   }
     // }, 1000)
   }
-};
+}
 </script>
 
-<style scoped >
+<style scoped lang="scss">
   .container{
     width: 100%;
     background: gray;
-  }
-  .my-box{
+    .my-box{
       width: 200px;
       background: #000;
       margin-bottom: 20px;
       color: #fff;
     }
+  }
 </style>

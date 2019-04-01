@@ -185,84 +185,139 @@
 </body>
 </html>
 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>Vue.js tree view example</title>
+    <style>
+        body {
+            font-family: Menlo, Consolas, monospace;
+            color: #444;
+        }
+
+        .item {
+            cursor: pointer;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 1em;
+            line-height: 1.5em;
+            list-style-type: dot;
+        }
+    </style>
+    <!-- Delete ".min" for console warnings in development -->
+    <script type="text/javascript" src="../js/vue.min.js"></script>
 </head>
 <body>
 
-<ul id="demo">
-    <item class="item" :model="treeData">
-    </item>
-</ul>
-<script type="text/javascript" src="../js/vue.min.js"></script>
+<!-- item template -->
 <script type="text/x-template" id="item-template">
     <li>
-        <div :class="{bold: isFolder}" @click="toggle">
+        <div
+                :class="{bold: isFolder}"
+                @click="toggle"
+                @dblclick="changeType">
             {{model.name}}
             <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
         </div>
-        <!--v-show控制当前元素的display属性，根据v-show里面的值来判断，true显示，false不显示-->
         <ul v-show="open" v-if="isFolder">
-            <!--model用于双向绑定数据-->
-            <item class="item" v-for="model in model.children" :model="model">
+            <item
+                    class="item"
+                    v-for="model in model.children"
+                    :model="model">
             </item>
+            <li class="add" @click="addChild">+</li>
         </ul>
     </li>
 </script>
+
+<p>(You can double click on an item to turn it into a folder.)</p>
+
+<!-- the demo root element -->
+<ul id="demo">
+    <item
+            class="item"
+            :model="treeData">
+    </item>
+</ul>
+
+<!-- demo code -->
 <script>
-    //加载树形结构初始数据，可用ajax获取
+    // demo data
     var data = {
         name: 'My Tree',
         children: [
-            {name: '一级'},
-            {name: '一级'},
+            {name: 'hello'},
+            {name: 'wat'},
             {
-                name: '一级有子菜单',
-                children: [{
-                    name: '二级有子菜单',
-                    children: [
-                        {name: '三级'},
-                        {name: '三级'}
-                    ]
-                },
-                    {name: '二级'},
-                    {name: '二级'}
+                name: 'child folder',
+                children: [
+                    {
+                        name: 'child folder',
+                        children: [
+                            {name: 'hello'},
+                            {name: 'wat'}
+                        ]
+                    },
+                    {name: 'hello'},
+                    {name: 'wat'},
+                    {
+                        name: 'child folder',
+                        children: [
+                            {name: 'hello'},
+                            {name: 'wat'}
+                        ]
+                    }
                 ]
             }
         ]
     }
-    Vue.component('item', {//获取全局组件(可用于注册组件）
+
+    // define the item component
+    Vue.component('item', {
         template: '#item-template',
         props: {
-            model: Object//定义model数据格式
+            model: Object
         },
         data: function () {
             return {
-                open: false//vue对样式改变操作，true显示 false不显示
+                open: false
             }
         },
-        computed: {//读取写入函数，不写get,set则为只读
+        computed: {
             isFolder: function () {
-                return this.model.children
+                return this.model.children &&
+                    this.model.children.length
             }
         },
         methods: {
             toggle: function () {
                 if (this.isFolder) {
-                    this.open = !this.open//打开树形结构
+                    this.open = !this.open
                 }
+            },
+            changeType: function () {
+                if (!this.isFolder) {
+                    Vue.set(this.model, 'children', [])
+                    this.addChild()
+                    this.open = true
+                }
+            },
+            addChild: function () {
+                this.model.children.push({
+                    name: 'new stuff'
+                })
             }
         }
     })
 
-
-    var demo = new Vue({//创建一个vue实例，绑定树形数据
+    // boot up the demo
+    var demo = new Vue({
         el: '#demo',
         data: {
             treeData: data
@@ -271,4 +326,3 @@
 </script>
 </body>
 </html>
-
